@@ -1,5 +1,5 @@
 while true; do
-CONNECTION="↑$(ip -s -h link | tail -n 3 | awk '{print $1}' | tail -n 1) ↓$(ip -s -h link | tail -n 3 | awk '{print $1}' | head -n 1)$(iwctl station wlan0 show | grep State | awk '{print '['$2']'}')"
+CONNECTION="↑$(ip -s -h link | tail -n 3 | awk '{print $1}' | tail -n 1) ↓$(ip -s -h link | tail -n 3 | awk '{print $1}' | head -n 1)$(iwctl station wlan0 show | grep State | awk '{print "["$2"]"}')"
 previcous=$(sed -n '1p' .status)
 
 if [ "$CONNECTION" != "$previcous" ]
