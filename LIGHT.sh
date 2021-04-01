@@ -1,4 +1,4 @@
-LIGHT=" 💡[$(xbacklight -get)%]"
+LIGHT=" 💡[$(light)%]"
 previcous=$(sed -n '5p' ~/.status)
 
 if [ "$LIGHT" != "$previcous" ]

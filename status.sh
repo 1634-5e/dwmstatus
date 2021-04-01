@@ -1,5 +1,6 @@
 while true; do
-CONNECTION="↑0 ↓0$(iwctl station wlan0 show | grep State | awk '{print "["$2"]"}')"
+# CONNECTION="$(vnstat | grep rx: | awk '{print "↑"$2$3" ↓"$5$6}')$(iwctl station wlan0 show | grep State | awk '{print "["$2"]"}')"
+CONNECTION="$(iwctl station wlan0 show | grep network | awk '{print "["$3"]"}')"
 previcous=$(sed -n '1p' ~/.status)
 
 if [ "$CONNECTION" != "$previcous" ]
@@ -7,7 +8,7 @@ then
 	sed -i "1c$CONNECTION" ~/.status
 	xsetroot -name "$(cat ~/.status | tr -d '\n')"
 fi
-sleep 60
+sleep 30
 done &
 
 while true; do
@@ -23,7 +24,7 @@ sleep 15
 done &
 
 while true; do
-BAT="| 🔌[$(acpi -b | tr -d ',' | awk '{print $4$3}')] "
+BAT="| 🔋[$(acpi -b | tr -d ',' | awk '{print $4$3}')] "
 previcous=$(sed -n '3p' ~/.status)
 if [ "$BAT" != "$previcous" ]
 then
